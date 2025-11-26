@@ -1,21 +1,22 @@
 ---
 # This automation simulates the use of the IKEA TRADFRI Remote control
 # connected through ZHA.
+# source_url: https://github.com/niro1987/homeassistant-config/blob/main/blueprints/automation/niro1987/zha_ikea_tradfri_styrbar_warmwhite.yaml
 
 blueprint:
-  source_url: https://github.com/niro1987/homeassistant-config/blob/main/blueprints/automation/niro1987/zha_ikea_tradfri_styrbar_warmwhite.yaml
+  source_url: https://github.com/kyleyoung101/haos_config/blob/main/automations/blueprints/zha_ikea_styrbar_warmwhite.yaml
 
-  name: ZHA - IKEA TRADFRI - STYRBAR - Warm White Lights
+  name: ZHA - IKEA - STYRBAR - Warm White Lights
 
   description: >-
-    This automation simulates the use of the IKEA TRADFRI STYRBAR remote control
+    This automation simulates the use of the IKEA STYRBAR remote control
     connected through ZHA.
 
   domain: automation
 
   input:
     remote:
-      name: IKEA TRADFRI remote control
+      name: IKEA STYRBAR remote control
       description: Select the remote control you wish to use.
       selector:
         device:
@@ -41,6 +42,13 @@ blueprint:
           unit_of_measurement: milliseconds
           mode: slider
       default: 500
+
+    StartTemp:
+      name: StartTempurature
+      description: Default Temperature to start the light at when turned on.
+      selector:
+        number:
+          min: 
 
 mode: restart
 max_exceeded: silent
