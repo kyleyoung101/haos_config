@@ -43,12 +43,27 @@ blueprint:
           mode: slider
       default: 500
 
-    StartTemp:
-      name: StartTempurature
+    startTemp:
+      name: Startup Tempurature
       description: Default Temperature to start the light at when turned on.
       selector:
         number:
-          min: 
+          min: 50
+          max: 450
+          step: 10
+          mode: slider
+      default: 400
+
+    startBrightness:
+      name: Startup brightness
+      description: The default Brightness level when turned on.
+      selector:
+        number:
+          min: 10
+          max: 254
+          step: 5
+          mode: slider
+      default: 254
 
 mode: restart
 max_exceeded: silent
@@ -56,6 +71,8 @@ max_exceeded: silent
 variables:
   var_light: !input light
   var_speed: !input speed
+  var_startBrightness: !input startBrightness
+  var_startTemp: !input startTemp
 
 trigger:
   - platform: event
@@ -77,8 +94,8 @@ action:
             target:
               entity_id: !input light
             data:
-              brightness: 254
-              color_temp: 400
+              brightness: !input startBrightness
+              color_temp: !input startTemp
 
       # Long-Press on the dim-up button.
       - conditions:
