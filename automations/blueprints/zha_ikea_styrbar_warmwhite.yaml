@@ -48,11 +48,11 @@ blueprint:
       description: Default Temperature to start the light at when turned on.
       selector:
         number:
-          min: 50
-          max: 450
-          step: 10
+          min: 1000
+          max: 20000
+          step: 500
           mode: slider
-      default: 400
+      default: 2200
 
     startBrightness:
       name: Startup brightness
@@ -95,7 +95,7 @@ action:
               entity_id: !input light
             data:
               brightness: !input startBrightness
-              color_temp: !input startTemp
+              color_temp_kelvin: !input startTemp
 
       # Long-Press on the dim-up button.
       - conditions:
@@ -153,11 +153,11 @@ action:
             target:
               entity_id: !input light
             data:
-              color_temp: >-
-                {% if state_attr(var_light, "color_temp") + 18 > 500 %}
+              color_temp_kelvin: >-
+                {% if state_attr(var_light, "color_temp_kelvin") + 18 > 500 %}
                   {{ 500 }}
                 {% else %}
-                  {{ state_attr(var_light, "color_temp") + 18 }}
+                  {{ state_attr(var_light, "color_temp_kelvin") + 18 }}
                 {% endif %}
               transition: "{{ (var_speed / 1000)|float }}"
 
@@ -175,11 +175,11 @@ action:
                   target:
                     entity_id: !input light
                   data:
-                    color_temp: >-
-                      {% if state_attr(var_light, "color_temp") + 18 > 500 %}
+                    color_temp_kelvin: >-
+                      {% if state_attr(var_light, "color_temp_kelvin") + 18 > 500 %}
                         {{ 500 }}
                       {% else %}
-                        {{ state_attr(var_light, "color_temp") + 18 }}
+                        {{ state_attr(var_light, "color_temp_kelvin") + 18 }}
                       {% endif %}
                     transition: "{{ (var_speed / 1000)|float }}"
                 - delay:
@@ -196,11 +196,11 @@ action:
             target:
               entity_id: !input light
             data:
-              color_temp: >-
-                {% if state_attr(var_light, "color_temp") - 18 < 153 %}
+              color_temp_kelvin: >-
+                {% if state_attr(var_light, "color_temp_kelvin") - 18 < 153 %}
                   {{ 153 }}
                 {% else %}
-                  {{ state_attr(var_light, "color_temp") - 18 }}
+                  {{ state_attr(var_light, "color_temp_kelvin") - 18 }}
                 {% endif %}
               transition: "{{ (var_speed / 1000)|float }}"
 
@@ -218,11 +218,11 @@ action:
                   target:
                     entity_id: !input light
                   data:
-                    color_temp: >-
-                      {% if state_attr(var_light, "color_temp") - 18 < 153 %}
+                    color_temp_kelvin: >-
+                      {% if state_attr(var_light, "color_temp_kelvin") - 18 < 153 %}
                         {{ 153 }}
                       {% else %}
-                        {{ state_attr(var_light, "color_temp") - 18 }}
+                        {{ state_attr(var_light, "color_temp_kelvin") - 18 }}
                       {% endif %}
                     transition: "{{ (var_speed / 1000)|float }}"
                 - delay:
